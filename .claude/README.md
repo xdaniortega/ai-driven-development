@@ -23,6 +23,7 @@ from *your* project, not from this kit.
 | File | Change | Why |
 |---|---|---|
 | `.claude/settings.json` | adds `env.CLAUDE_CODE_FORK_SUBAGENT = "0"` if unset | Lets the brain wait for each subagent's result. Since Claude Code 2.1.302 fork mode is on by default, and while it is on an interactive session cannot wait for a subagent ([docs](https://code.claude.com/docs/en/sub-agents#let-claude-wait-for-a-subagent)). |
+| `.claude/settings.json` | appends missing `permissions.allow` rules: `Read`, `Glob`, `Grep`, `Edit`, `Write`, and common build/test/Foundry/Hardhat and read-only git `Bash` commands; and `permissions.deny` rules for `git commit/push/checkout/branch/reset/stash`, `npm publish`, `sudo`, `rm -rf`, piped `curl`/`wget`, and `.env`/`.pem`/`.key` reads | Once you approve a plan, the executor edits and runs checks without prompts. Anything not listed still asks you, and `deny` always wins. `remove` deletes only the rules `init` added. Permissions are project-wide, so read-only roles stay read-only through their `tools` allowlists. |
 | `.gitignore` | appends a marked block ignoring `.crew/` | Workflow records stay local |
 | `CLAUDE.md` or `.claude/CLAUDE.md` (only if one exists, or if only `CLAUDE.local.md` exists) | appends a marked import of the root `AGENTS.md` (`@AGENTS.md`, or `@../AGENTS.md` from `.claude/`) | Claude reads `AGENTS.md` automatically only when no `CLAUDE.md`/`CLAUDE.local.md` exists ([docs](https://code.claude.com/docs/en/memory#agents-md)) |
 

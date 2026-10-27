@@ -15,7 +15,7 @@ Usage:
   ${pkg.name} --help | --version
 
 Commands:
-  init     Copy the roles and /crew skill into <dir>/.claude, merge the required settings,
+  init     Copy the roles and /crew skill into <dir>/.claude, merge the required settings and permissions,
            ignore .crew/, and import AGENTS.md from an existing CLAUDE.md. Safe to repeat.
   update   Refresh installed files you have not modified (same rules as init).
   remove   Delete installed files you have not modified and undo the merged settings/blocks.
@@ -51,6 +51,8 @@ const LABELS = {
   unchanged: 'unchanged',
   'create-settings': 'create',
   'merge-settings': 'merge',
+  'create-settings-permissions': 'create',
+  'merge-permissions': 'merge',
   'create-gitignore': 'create',
   'merge-gitignore': 'append',
   'create-claude-md': 'create',
@@ -59,6 +61,7 @@ const LABELS = {
 
 function describe(action) {
   const label = (LABELS[action.kind] ?? action.kind).padEnd(22);
+  if (action.rules) return `  ${label}${action.path}  permissions: ${action.rules.allow.length} allow, ${action.rules.deny.length} deny rules`;
   if (action.key) return `  ${label}${action.path}  env.${action.key}="${action.value}"`;
   if (action.kind.endsWith('gitignore')) return `  ${label}${action.path}  ignore .crew/ (managed block)`;
   if (action.kind.endsWith('claude-md')) return `  ${label}${action.path}  @AGENTS.md import (managed block)`;

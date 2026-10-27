@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
-import { RESOURCES, MANIFEST, PACKAGE_ROOT } from '../lib/installer.mjs';
+import { RESOURCES, MANIFEST, PACKAGE_ROOT, PERMISSIONS } from '../lib/installer.mjs';
 
 const CLI = resolve(PACKAGE_ROOT, 'bin/ai-driven-development.mjs');
 
@@ -43,7 +43,7 @@ test('fresh project: init installs everything, dry-run writes nothing', () => {
   const res = run(['init', '--target', dir], tmpdir());
   assert.equal(res.status, 0, res.stderr);
   for (const rel of RESOURCES) assert.equal(text(dir, rel), text(PACKAGE_ROOT, rel), rel);
-  assert.deepEqual(json(dir, '.claude/settings.json'), { env: { CLAUDE_CODE_FORK_SUBAGENT: '0' } });
+  assert.deepEqual(json(dir, '.claude/settings.json'), { env: { CLAUDE_CODE_FORK_SUBAGENT: '0' }, permissions: PERMISSIONS });
   assert.match(text(dir, '.gitignore'), /^\.crew\/$/m);
   assert.equal(existsSync(join(dir, 'CLAUDE.md')), false, 'no CLAUDE.md is created when none is needed');
   assert.equal(existsSync(join(dir, 'AGENTS.md')), false, 'AGENTS.md belongs to the brain, not the installer');
@@ -60,7 +60,8 @@ test('configured project: existing settings and instructions are preserved and m
 
   assert.equal(run(['init'], dir).status, 0);
   const merged = json(dir, '.claude/settings.json');
-  assert.deepEqual(merged.permissions, settings.permissions);
+  assert.deepEqual(merged.permissions.allow, ['Bash(npm test)', ...PERMISSIONS.allow]);
+  assert.deepEqual(merged.permissions.deny, PERMISSIONS.deny);
   assert.deepEqual(merged.env, { FOO: 'bar', CLAUDE_CODE_FORK_SUBAGENT: '0' });
   assert.ok(text(dir, 'CLAUDE.md').startsWith('# House rules\n\nUse tabs.\n'));
   assert.match(text(dir, 'CLAUDE.md'), /^@AGENTS\.md$/m);

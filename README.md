@@ -55,7 +55,7 @@ node <kit-dir>/bin/ai-driven-development.mjs init
 
 `init` prints every action. It adds `.claude/agents/{scout,oracle,executor,reviewer}.md`,
 `.claude/skills/crew/`, sets `env.CLAUDE_CODE_FORK_SUBAGENT="0"` in `.claude/settings.json` (merged, not
-replaced), ignores `.crew/` in `.gitignore`, and, only if you have a `CLAUDE.md`, appends an `@AGENTS.md`
+replaced) together with permissive allow rules and safety deny rules (no commits, pushes, publishing, or secret reads), ignores `.crew/` in `.gitignore`, and, only if you have a `CLAUDE.md`, appends an `@AGENTS.md`
 import so your project knowledge loads. It stops without writing anything if a file or role name
 conflicts with yours. Details: [.claude/README.md](.claude/README.md).
 
