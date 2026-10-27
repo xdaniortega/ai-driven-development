@@ -14,6 +14,17 @@ The `/crew` skill ties them together: plan in thin end-to-end phases, stop for y
 one phase, re-check it, review it, correct it (at most twice), accept it, record lasting decisions in your
 project's `AGENTS.md`, and resume later from files on disk.
 
+## Why vertical slices
+
+Plans are cut by **user behavior**, not by layer. Phase 1 is a thin walking skeleton from the real entry
+point (UI, API, or CLI) through every layer, and each later phase adds one capability to that path. The
+template enforces it: outcomes read "A <actor> can <do X> and sees <Y>", each phase has a demo script, and a
+boundary check rejects layer-named phases.
+
+Why: every accepted phase works end to end and can be demoed, so integration problems surface in the first
+phase instead of the last, reviews cover one small observable change, and cancelling later work still
+leaves something usable.
+
 This repository is a resource to import and adapt, not an application or a security audit. Read the
 files; they are short. Role rules live in [`.claude/agents/`](.claude/agents/README.md), workflow rules in
 [`.claude/skills/crew/`](.claude/skills/crew/README.md).
