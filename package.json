@@ -1,0 +1,44 @@
+{
+  "name": "ai-driven-development",
+  "version": "0.1.0",
+  "description": "Importable Claude Code workflow: scout, oracle, executor, and reviewer subagents plus a /crew skill that plans and delivers changes as reviewed vertical slices.",
+  "keywords": ["claude-code", "subagents", "skills", "ai-driven-development", "vertical-slices", "code-review"],
+  "license": "MIT",
+  "author": "Daniel Ortega <danielortegaberja@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xdaniortega/ai-driven-development.git"
+  },
+  "homepage": "https://github.com/xdaniortega/ai-driven-development#readme",
+  "bugs": "https://github.com/xdaniortega/ai-driven-development/issues",
+  "type": "module",
+  "bin": {
+    "ai-driven-development": "bin/ai-driven-development.mjs"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    ".claude/agents/scout.md",
+    ".claude/agents/oracle.md",
+    ".claude/agents/executor.md",
+    ".claude/agents/reviewer.md",
+    ".claude/skills/crew/SKILL.md",
+    ".claude/skills/crew/README.md",
+    ".claude/skills/crew/plan-template.md",
+    ".claude/skills/crew/scripts/snapshot.mjs",
+    "README.md",
+    "LICENSE",
+    "NOTICE.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "check:pack": "node scripts/check-pack.mjs",
+    "check": "npm test && npm run check:pack"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
