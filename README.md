@@ -1,4 +1,4 @@
-# AI-driven development with Claude Code roles
+# AI-driven development resources
 
 A small, importable Claude Code setup for delivering changes as **reviewed vertical slices**.
 Your main session becomes the **brain**; four subagents do focused work:
@@ -18,7 +18,7 @@ project's `AGENTS.md`, and resume later from files on disk.
 
 Plans are cut by **user behavior**, not by layer. Phase 1 is a thin walking skeleton from the real entry
 point (UI, API, or CLI) through every layer, and each later phase adds one capability to that path. The
-template enforces it: outcomes read "A <actor> can <do X> and sees <Y>", each phase has a demo script, and a
+template enforces it: outcomes read "A  can  and sees ", each phase has a demo script, and a
 boundary check rejects layer-named phases.
 
 Why: every accepted phase works end to end and can be demoed, so integration problems surface in the first
@@ -32,61 +32,36 @@ files; they are short. Role rules live in [`.claude/agents/`](.claude/agents/REA
 ## Prerequisites
 
 - Claude Code **2.1.277 or later** (reads `AGENTS.md` natively; verified with 2.1.311) and a working login.
-- Node.js **20 or later** with npm (used only by the initializer and the snapshot helper).
+- Node.js **20 or later** (used only by the initializer and the snapshot helper).
 
-## The journey
+## Quickstart
 
 ### 1. Get the resource
 
-Choose one route. Both install the same files.
-
-**npm.** The package is not yet on the public registry. Until it is, install the release tarball you
-were given (or build one with `npm pack` in a clone):
-
-```bash
-cd <your-project>
-npm install --save-dev <path-to>/ai-driven-development-0.1.0.tgz
-npx ai-driven-development init --dry-run     # preview: nothing is written
-npx ai-driven-development init
-```
-
-After publication the first line becomes `npm install --save-dev ai-driven-development`.
-Installing the package alone changes nothing in your project; `init` does.
-
-**Clone.**
-
 ```bash
 git clone https://github.com/xdaniortega/ai-driven-development.git <kit-dir>
+```
+
+### 2. Initialize your project
+
+```bash
 cd <your-project>
-node <kit-dir>/bin/ai-driven-development.mjs init --dry-run
 node <kit-dir>/bin/ai-driven-development.mjs init
 ```
 
-### 2. Inspect what changed
-
-`init` prints every action. It adds `.claude/agents/{scout,oracle,executor,reviewer}.md`,
-`.claude/skills/crew/`, sets `env.CLAUDE_CODE_FORK_SUBAGENT="0"` in `.claude/settings.json` (merged, not
-replaced) together with permissive allow rules and safety deny rules (no commits, pushes, publishing, or secret reads), ignores `.crew/` in `.gitignore`, and, only if you have a `CLAUDE.md`, appends an `@AGENTS.md`
-import so your project knowledge loads. It stops without writing anything if a file or role name
-conflicts with yours. Details: [.claude/README.md](.claude/README.md).
-
 ### 3. Check that it loaded
-
-Start a **new** `claude` session in your project (settings are read at startup), then:
-
-```text
-/agents        → scout, oracle, executor, reviewer are listed under project agents
-/memory        → your CLAUDE.md and/or AGENTS.md are listed
-```
 
 `/crew` appears when you type `/`.
 
-### 4. Establish project knowledge
+## How to use (example)
+
+### 4. Prompt the feature you want to develop
 
 ```text
-/crew Establish project knowledge only: use scout to map this repository's architecture and how it is
-tested, then create or update AGENTS.md with concise, verified project knowledge. Do not plan or change
-any source yet.
+/crew Build a tip jar dApp, local only (Hardhat/Anvil, no mainnet or testnet deploys).                                                                                                                                                 
+   - Solidity contract TipJar: anyone can tip ETH with a short message; the owner can withdraw; emit a Tipped event.                                                                                                                     
+   - Tests covering tipping, empty-tip revert, owner-only withdraw, and event emission.
+   - Minimal Vite + viem frontend: connect wallet, send a tip, list recent tips from events. 
 ```
 
 Expect a scout report and a short `## Project knowledge (maintained by /crew)` section in `AGENTS.md`.
@@ -138,11 +113,11 @@ After the last phase the brain reruns all checks and has `reviewer` assess the i
 ## Update or remove
 
 ```bash
-npx ai-driven-development update     # refresh files you have not modified
-npx ai-driven-development remove     # remove files you have not modified; undo merged settings
+node <kit-dir>/bin/ai-driven-development.mjs update     # refresh files you have not modified
+node <kit-dir>/bin/ai-driven-development.mjs remove     # remove files you have not modified; undo merged settings
 ```
 
-Use `node <kit-dir>/bin/ai-driven-development.mjs …` for the clone route. Neither command touches
+Neither command touches
 `AGENTS.md`, your plans, or `.crew/`. Files you edited are reported and kept.
 
 ## Repository map
@@ -156,8 +131,8 @@ Use `node <kit-dir>/bin/ai-driven-development.mjs …` for the clone route. Neit
 
 ## Next steps
 
-- Run the journey on a real but low-risk change in your project and read every review packet.
+- Run the example on a real but low-risk change in your project and read every review packet.
 - Tune per-role models and tools (see [.claude/agents/README.md](.claude/agents/README.md)).
 - Add your domain constraints to `AGENTS.md` so every role and review uses them.
 - Pick extensions only when you feel the gap: hooks, checkpoint commits, broader review
-  ([.claude/skills/crew/README.md](.claude/skills/crew/README.md)).
+([.claude/skills/crew/README.md](.claude/skills/crew/README.md)).
