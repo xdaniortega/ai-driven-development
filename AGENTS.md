@@ -25,7 +25,7 @@ vertical-phase plan template, and a small initializer distributed through npm an
 - No sample application, transcripts, verification fixtures, credentials, or personal paths in the repo
   or package. Verification evidence lives outside the repository.
 - The default never commits, pushes, branches, or broadcasts to mainnet.
-- Publishing to npm is a manual owner action (`docs/releasing/README.md`); no publish automation.
+- Publishing to npm is a manual owner action; no publish automation.
 
 ## Commands
 

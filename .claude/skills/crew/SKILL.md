@@ -90,6 +90,9 @@ is not. After acceptance only the plan and `.crew/` change; a later knowledge ed
   sequencing before you settle them.
 
 Each phase is one thin, observable outcome across only the layers it needs; layers are subtasks inside it.
+Phrase each outcome as "A <actor> can <do X> and sees <Y>", slice by behavior rather than component, make P1
+a walking skeleton through the real entry point and every layer of the final product, and give each phase a
+demo script that starts at that entry point (see the template's rules).
 Fold enabling work into the first outcome that needs it. Before presenting, complete the template's
 **Phase boundary check** and fix failures by narrowing outcomes, not by splitting into layer phases.
 

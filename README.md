@@ -124,9 +124,6 @@ Close Claude Code, start a new session, and continue from disk:
 
 After the last phase the brain reruns all checks and has `reviewer` assess the integrated change.
 
-More prompts, grouped by intent: [docs/README.md](docs/README.md). The prompts in steps 4–8 are the ones
-used in the verification run.
-
 ## Update or remove
 
 ```bash
@@ -144,9 +141,7 @@ Use `node <kit-dir>/bin/ai-driven-development.mjs …` for the clone route. Neit
 | `.claude/agents/` | The four role definitions (installed) |
 | `.claude/skills/crew/` | `/crew` skill, plan template, snapshot helper (installed) |
 | `bin/`, `lib/` | The `init`/`update`/`remove` command |
-| `docs/` | Prompt cookbook, verification notes, release guide |
 | `AGENTS.md` | This repository's own decisions (not copied into your project) |
-| `NOTICE.md` | Author and license notice |
 
 ## Next steps
 

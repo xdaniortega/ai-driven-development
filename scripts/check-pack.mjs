@@ -5,7 +5,7 @@ import { RESOURCES } from '../lib/installer.mjs';
 
 const [report] = JSON.parse(execFileSync('npm', ['pack', '--dry-run', '--json', '--ignore-scripts'], { encoding: 'utf8' }));
 const files = report.files.map((f) => f.path);
-const required = [...RESOURCES, 'bin/ai-driven-development.mjs', 'lib/installer.mjs', 'package.json', 'README.md', 'LICENSE', 'NOTICE.md'];
+const required = [...RESOURCES, 'bin/ai-driven-development.mjs', 'lib/installer.mjs', 'package.json', 'README.md', 'LICENSE'];
 const forbidden = [/^\.crew\//, /plan\.md$/, /^test\//, /^docs\//, /^scripts\//, /^verification/, /\.env/, /\.pem$/, /\.key$/, /\.tgz$/, /settings(\.local)?\.json$/, /^AGENTS\.md$/, /^CLAUDE/];
 
 const missing = required.filter((f) => !files.includes(f));

@@ -27,8 +27,7 @@
     ".claude/skills/crew/plan-template.md",
     ".claude/skills/crew/scripts/snapshot.mjs",
     "README.md",
-    "LICENSE",
-    "NOTICE.md"
+    "LICENSE"
   ],
   "engines": {
     "node": ">=20"
