@@ -1,7 +1,7 @@
-# AI-driven development resources
+# AI-driven Development Workflow
 
-A small, importable Claude Code setup for delivering changes as **reviewed vertical slices**.
-Your main session becomes the **brain**; four subagents do focused work:
+A small, importable workflow for delivering changes as **reviewed vertical slices**.
+Your main session becomes the **brain**; four roles do focused work:
 
 | Role | Does | Can |
 |---|---|---|
@@ -14,12 +14,19 @@ The `/crew` skill ties them together: plan in thin end-to-end phases, stop for y
 one phase, re-check it, review it, correct it (at most twice), accept it, record lasting decisions in your
 project's `AGENTS.md`, and resume later from files on disk.
 
-## Why vertical slices
+## Planning: vertical slicing
+
+With horizontal slicing, progress means completing a technical layer. With vertical slicing, progress means
+delivering a working behavior through the layers it needs.
+
+This demo pretends to demonstrate other ways of planning. In this case, for full MVP demos, vertical slicing
+gives earlier integration feedback and something useful to demonstrate. Horizontal tasks still make sense
+for changes genuinely confined to one layer, such as a database migration or compiler upgrade.
 
 Plans are cut by **user behavior**, not by layer. Phase 1 is a thin walking skeleton from the real entry
 point (UI, API, or CLI) through every layer, and each later phase adds one capability to that path. The
-template enforces it: outcomes read "A  can  and sees ", each phase has a demo script, and a
-boundary check rejects layer-named phases.
+template enforces it: outcomes read "A <user> can <action> and sees <result>", each phase has a demo
+script, and a boundary check rejects layer-named phases.
 
 Why: every accepted phase works end to end and can be demoed, so integration problems surface in the first
 phase instead of the last, reviews cover one small observable change, and cancelling later work still
@@ -76,49 +83,6 @@ template, consult oracle on the phase boundaries, and stop for my agreement befo
 
 The brain uses `scout` for facts, asks `oracle` about consequential choices, writes `plan.md`, and
 **stops**. Nothing in your source has changed yet.
-
-### 6. Agree the phases
-
-Open `plan.md`. Each phase should be a thin outcome you could demonstrate on its own (for example "a user
-can add a tag to a note and see it in the list"), with subtasks across layers, acceptance criteria, checks,
-and regression coverage. Reply with changes, or authorize:
-
-```text
-The plan is agreed, including your proposed defaults for the open decisions. Implement P1 only.
-```
-
-To change a decision, say so in the same message (for example "…agreed, but V2 should reject empty
-segments").
-
-### 7. Let one slice run
-
-The brain snapshots the source, hands P1 to `executor`, inspects the diff, re-runs the checks itself,
-freezes a content fingerprint, writes a review packet in `.crew/reviews/`, and asks a fresh `reviewer` for a
-verdict. Blocking findings go back for correction (at most two rounds). P1 is accepted only with `PASS`,
-passing checks, and an unchanged fingerprint. Nothing is committed.
-
-Inspect: `git diff`, `plan.md` (P1 status and evidence), `.crew/reviews/P1-r*.md`, and the `AGENTS.md`
-changes the reviewer approved with the code.
-
-### 8. Resume in a fresh session
-
-Close Claude Code, start a new session, and continue from disk:
-
-```text
-/crew resume. P2 is authorized; implement it.
-```
-
-After the last phase the brain reruns all checks and has `reviewer` assess the integrated change.
-
-## Update or remove
-
-```bash
-node <kit-dir>/bin/ai-driven-development.mjs update     # refresh files you have not modified
-node <kit-dir>/bin/ai-driven-development.mjs remove     # remove files you have not modified; undo merged settings
-```
-
-Neither command touches
-`AGENTS.md`, your plans, or `.crew/`. Files you edited are reported and kept.
 
 ## Repository map
 
