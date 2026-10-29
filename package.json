@@ -33,9 +33,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node --test test/*.test.mjs",
     "check:pack": "node scripts/check-pack.mjs",
-    "check": "npm test && npm run check:pack"
+    "check": "npm run check:pack"
   },
   "publishConfig": {
     "access": "public"

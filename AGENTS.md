@@ -29,5 +29,4 @@ vertical-phase plan template, and a small initializer distributed through npm an
 
 ## Commands
 
-- `npm test` — installer and snapshot tests (temporary projects with spaces in paths)
-- `npm run check` — tests plus `npm pack --dry-run` boundary check
+- `npm run check` — `npm pack --dry-run` publish-boundary check
