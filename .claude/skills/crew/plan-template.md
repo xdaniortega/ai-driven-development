@@ -1,9 +1,7 @@
 # <Change name>
 
 <!--
-Canonical /crew plan template. Keep every top-level section, in this order.
-Write facts you verified; record unknowns as Variables or open decisions, never as invented facts.
-Delete these comments when you write a real plan.
+Canonical /crew plan template. Keep every top-level section, in this order. Write facts you verified; record unknowns as Variables or open decisions, never as invented facts. Delete these comments when you write a real plan.
 -->
 
 ## Problem
@@ -30,24 +28,18 @@ Delete these comments when you write a real plan.
 
 Baseline: <!-- how the starting source state was captured, e.g. `.crew/baseline.json` -->
 
-Phases are **vertical slices**: each delivers one thin, observable outcome across only the layers it needs
-(database/contract, service/API, frontend, validation). Layers are subtasks inside a phase, never separate phases.
-Fold enabling work into the first phase that needs it. Tests belong to the phase whose behavior they establish.
+Phases are **vertical slices**: each delivers one thin, observable outcome across only the layers it needs (database/contract, service/API, frontend, validation). Layers are subtasks inside a phase, never separate phases. Fold enabling work into the first phase that needs it. Tests belong to the phase whose behavior they establish.
 
 Rules for every phase:
 
-- **Outcome form.** Write the outcome as "A <actor> can <do X> and sees <Y>", where the actor is a user, caller,
-  or operator. "Tests pass", "X is deployed", or "Y exists" are evidence, not outcomes.
-- **Slice by behavior, never by component.** Split by what the actor can do (tip, then withdraw), not by layer
-  (contract, then UI). If phase titles read like layers, regroup.
-- **Walking skeleton first.** P1 runs the whole path from the real entry point (UI, API, or CLI) to the real
-  persistence or contract, even if every layer is minimal. Later phases add capability to that path.
+- **Outcome form.** Write the outcome as "A <actor> can <do X> and sees <Y>", where the actor is a user, caller, or operator. "Tests pass", "X is deployed", or "Y exists" are evidence, not outcomes.
+- **Slice by behavior, never by component.** Split by what the actor can do (tip, then withdraw), not by layer (contract, then UI). If phase titles read like layers, regroup.
+- **Walking skeleton first.** P1 runs the whole path from the real entry point (UI, API, or CLI) to the real persistence or contract, even if every layer is minimal. Later phases add capability to that path.
 - **Demo from the entry point.** Each phase has a demo script whose first step is at the real entry point.
 - **Say what is thin.** List what is deliberately stubbed or deferred so a thin phase is never a hidden one.
 - **Shippable alone.** If later phases were cancelled, the accepted phases must still be usable.
 
-Wrong: P1 contract + deploy script, P2 frontend. Right: P1 a visitor tips and sees the tip in a minimal page
-(contract, deploy, UI, tests, all thin); P2 the owner withdraws (contract + UI button).
+Wrong: P1 contract + deploy script, P2 frontend. Right: P1 a visitor tips and sees the tip in a minimal page (contract, deploy, UI, tests, all thin); P2 the owner withdraws (contract + UI button).
 
 ### P1 — <A <actor> can <do X>, no layer names>
 
